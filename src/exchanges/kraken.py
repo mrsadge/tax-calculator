@@ -5,16 +5,16 @@ import datetime
 import utils
 
 
-KRAKEN_CSV_FILE = 'kraken_trades.csv'
-KRAKEN_CSV_FIELDS = ['txid', 'ordertxid', 'pair', 'time', 'type',
-                     'ordertype', 'price', 'cost', 'fee', 'vol', 'margin', 'misc', 'ledgers']
+KRAKEN_TRADES_FILE = 'kraken_trades.csv'
+KRAKEN_TRADES_CSV_FIELDS = ['txid', 'ordertxid', 'pair', 'time', 'type',
+                            'ordertype', 'price', 'cost', 'fee', 'vol', 'margin', 'misc', 'ledgers']
 
 
-def get_csv_rows(filename=KRAKEN_CSV_FILE):
+def get_csv_rows(filename=KRAKEN_TRADES_FILE):
     rows = []
     with open(filename, 'r') as f:
         reader = csv.reader(f)
-        assert next(reader) == KRAKEN_CSV_FIELDS
+        assert next(reader) == KRAKEN_TRADES_CSV_FIELDS
         for row in reader:
             trade_id = 'KRAKEN:{}:{}'.format(row[0], row[1])
             action = row[4].upper()
@@ -31,7 +31,10 @@ def get_csv_rows(filename=KRAKEN_CSV_FILE):
             if not asset:
                 continue
             trading_fee = float(row[8])
-            total_dollars = float(row[7]) + trading_fee
+            if action == 'BUY':
+                total_dollars = float(row[7]) + trading_fee
+            else:
+                total_dollars = float(row[7]) - trading_fee
             rows.append([trade_id, action, date, size, asset, trading_fee, total_dollars])
     return sorted(rows, key=lambda x: x[2])
 

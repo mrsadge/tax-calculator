@@ -2,9 +2,26 @@
 
 import copy
 import datetime
+import requests
+import time
 
 
+# Date should be standardized in UTC
 STANDARD_CSV_FIELDS = ['trade id', 'action', 'date', 'size', 'asset', 'trading_fee', 'total_dollars']
+REBRANDED_TOKENS = {
+    'LEND': 'AAVE',
+}
+
+
+def get_request_with_retry(url, headers, num_retries=3):
+    for i in range(num_retries):
+        try:
+            response = requests.get(url, headers=headers)
+            response.raise_for_status()
+            return response.json()
+        except Exception:
+            time.sleep(2**i)
+    return None
 
 
 # Returns (amount, bool,) where bool represents whether the obligation is short-term
