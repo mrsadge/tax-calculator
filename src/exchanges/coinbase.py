@@ -40,4 +40,6 @@ def get_deposits_and_withdrawals(filename=COINBASE_DEPOSITS_FILE):
 
 if __name__ == '__main__':
     rows = get_csv_rows()
-    utils.get_token_bases(rows)
+    rows_2019 = get_csv_rows(filename='coinbase_trades_2019.csv')
+    leftovers_2019 = utils.get_previous_year_leftovers(rows_2019)
+    utils.process_trades(leftovers_2019 + rows)

@@ -41,4 +41,4 @@ def get_csv_rows(filename=KRAKEN_TRADES_FILE):
 
 if __name__ == '__main__':
     rows = get_csv_rows()
-    utils.get_token_bases(rows)
+    utils.process_trades(rows)

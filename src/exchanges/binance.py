@@ -125,9 +125,6 @@ def get_csv_rows(filename=BINANCE_TRADES_FILE):
     return sorted(rows, key=lambda x: x[2])
 
 
-STANDARD_CSV_FIELDS = ['trade id', 'action', 'date',
-                       'size', 'asset', 'trading_fee', 'total_dollars']
-
 if __name__ == '__main__':
     rows = get_csv_rows()
-    utils.get_token_bases(rows)
+    utils.process_trades(rows)
