@@ -11,7 +11,7 @@ COINBASE_TRADES_CSV_FIELDS = ['portfolio', 'trade id', 'product', 'side', 'creat
                               'size', 'size unit', 'price', 'fee', 'total', 'price/fee/total unit']
 
 
-def get_csv_rows(filename=COINBASE_TRADES_FILE):
+def get_standard_trades(filename=COINBASE_TRADES_FILE):
     rows = []
     with open(filename, 'r') as f:
         reader = csv.reader(f)
@@ -39,7 +39,7 @@ def get_deposits_and_withdrawals(filename=COINBASE_DEPOSITS_FILE):
 
 
 if __name__ == '__main__':
-    rows = get_csv_rows()
-    rows_2019 = get_csv_rows(filename='coinbase_trades_2019.csv')
+    rows = get_standard_trades()
+    rows_2019 = get_standard_trades(filename='coinbase_trades_2019.csv')
     leftovers_2019 = utils.get_previous_year_leftovers(rows_2019)
     utils.process_trades(leftovers_2019 + rows)

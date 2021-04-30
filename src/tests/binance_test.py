@@ -36,7 +36,8 @@ class BinanceTest(unittest.TestCase):
         expected_date = datetime.datetime.strptime('4/25/2020 19:54', "%m/%d/%Y %H:%M")
         expected = [
             ['BINANCE:1', 'BUY', expected_date, 40.0, 'LEND', 0, 100.0],
-            ['BINANCE:1-AUXILIARY', 'SELL', expected_date, 0.1, 'BTC', 5.0, 95.0]
+            ['BINANCE:1-AUXILIARY', 'SELL', expected_date,
+                0.1, 'BTC', 0.5000000000000001, 99.5]
         ]
 
         self.assertEqual(prepare_rows_helper(row, 1), expected)

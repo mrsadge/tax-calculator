@@ -13,10 +13,12 @@ REBRANDED_TOKENS = {
 }
 
 
-def get_request_with_retry(url, headers, num_retries=3):
+def get_request_with_retry(url, headers, num_retries=6):
     for i in range(num_retries):
         try:
             response = requests.get(url, headers=headers)
+            if response.status_code >= 400 and response.status_code < 500:
+                print('received a {} from {}'.format(response.status_code, url))
             response.raise_for_status()
             return response.json()
         except Exception:

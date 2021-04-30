@@ -10,7 +10,7 @@ KRAKEN_TRADES_CSV_FIELDS = ['txid', 'ordertxid', 'pair', 'time', 'type',
                             'ordertype', 'price', 'cost', 'fee', 'vol', 'margin', 'misc', 'ledgers']
 
 
-def get_csv_rows(filename=KRAKEN_TRADES_FILE):
+def get_standard_trades(filename=KRAKEN_TRADES_FILE):
     rows = []
     with open(filename, 'r') as f:
         reader = csv.reader(f)
@@ -40,5 +40,5 @@ def get_csv_rows(filename=KRAKEN_TRADES_FILE):
 
 
 if __name__ == '__main__':
-    rows = get_csv_rows()
+    rows = get_standard_trades()
     utils.process_trades(rows)

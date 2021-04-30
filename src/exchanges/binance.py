@@ -113,7 +113,7 @@ def prepare_rows_helper(row, trade_id_counter):
     return ret
 
 
-def get_csv_rows(filename=BINANCE_TRADES_FILE):
+def get_standard_trades(filename=BINANCE_TRADES_FILE):
     rows = []
     with open(filename, 'r') as f:
         reader = csv.reader(f)
@@ -126,5 +126,5 @@ def get_csv_rows(filename=BINANCE_TRADES_FILE):
 
 
 if __name__ == '__main__':
-    rows = get_csv_rows()
+    rows = get_standard_trades()
     utils.process_trades(rows)
